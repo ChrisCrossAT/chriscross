@@ -3,10 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioDrop</title>
+    <title>Chris Cross - Urban Dance Styles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://cdn.prod.website-files.com/63a2f14e0a748d1eab88675b/641c1cbe6402f3478cb7083e_Gallery%20(3).jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            text-align: center;
+            max-width: 1200px;
+            margin: auto;
+            padding: 50px 20px;
+        }
+        h1 {
+            font-size: 36px;
+            color: #fff;
+        }
+        h2 {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .profile-img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .links {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+        .links li {
+            margin: 15px 0;
+        }
+        .links a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 18px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            width: 250px;
+            margin: 10px auto;
+        }
+        .links a:hover {
+            background-color: #0056b3;
+        }
+        .icon {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        .video-container {
+            margin: 30px 0;
+        }
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Willkommen zu BioDrop!</h1>
-    <p>Dies ist eine Beispielseite für BioDrop.</p>
+    <div class="container">
+        <!-- Profilbild und Name -->
+        <img src="https://cdn.prod.website-files.com/63a2f14e0a748d1eab88675b/641c1cc10d93072ff5403148_Gallery%20(53)-p-800.webp" alt="Chris Cross Profilbild" class="profile-img">
+        <h1>Chris Cross</h1>
+        <h2>Urban Dance Styles</h2>
+
+        <!-- Links -->
+        <ul class="links">
+            <li>
+                <a href="https://www.chriscross.at/" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Font_Awesome_5_solid_link.svg" alt="Website Icon" class="icon">Website
+                </a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/in/chriscrossat/" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn Icon" class="icon">LinkedIn
+                </a>
+            </li>
+            <li>
+                <a href="https://www.chriscross.at/about" target="_blank">
+                    Mehr über Chris Cross
+                </a>
+            </li>
+        </ul>
+
+        <!-- YouTube Videos -->
+        <div class="video-container">
+            <h2>Das Supertalent 2021</h2>
+            <a href="https://youtu.be/YIAZ3Hg4d9k?si=xTErXhGZC2CeyVla" target="_blank">
+                <iframe src="https://www.youtube.com/embed/YIAZ3Hg4d9k?rel=0" allowfullscreen></iframe>
+            </a>
+        </div>
+
+        <div class="video-container">
+            <h2>Die Große Chance 2024</h2>
+            <a href="https://youtu.be/w4fhBBswrzc?si=Fs91mOBGL-C9zoxm" target="_blank">
+                <iframe src="https://www.youtube.com/embed/w4fhBBswrzc?rel=0" allowfullscreen></iframe>
+            </a>
+        </div>
+
+        <div class="video-container">
+            <h2>Romanii Au Talent 2024</h2>
+            <a href="https://youtu.be/_Tv5qb8g97E?si=AsDavbs4pl6IgYH1" target="_blank">
+                <iframe src="https://www.youtube.com/embed/_Tv5qb8g97E?rel=0" allowfullscreen></iframe>
+            </a>
+        </div>
+    </div>
 </body>
 </html>
