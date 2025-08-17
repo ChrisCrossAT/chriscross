@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dance Classes – Chris Cross</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --btn-bg:#007bff; /* Button color (for Back button) */
+      --glass-bg: rgba(0,0,0,.55);
+      --text:#fff;
+      --muted:#cbd5e1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body{
+      margin:0;
+      font-family: 'Roboto',system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
+      color: var(--text);
+      background-image: linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.7)),
+        url('https://www.impulstanz.com/media/sys_rsz/9b1e306847f23b4e7f6ea206cce65839__25_ChrissCross_c_ErnestStirnschneider_03__RSZw900.jpg');
+      background-size: cover; background-position:center; background-attachment: fixed;
+    }
+
+    .page{ max-width:1200px; margin:0 auto; padding:48px 20px; }
+
+    header{ text-align:center; margin-bottom:20px; }
+    header h1{ margin:0 0 12px; font-size:40px; letter-spacing:.5px; text-transform:uppercase; text-shadow: 2px 2px 5px rgba(0,0,0,.7); }
+
+    /* Trailer video on top */
+    .video{ max-width:900px; margin: 10px auto 28px; }
+    .embed{ position:relative; width:100%; padding-top:56.25%; border-radius:12px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+    .embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+    .glass{ background: var(--glass-bg); border:1px solid rgba(255,255,255,.08); border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.35); backdrop-filter: blur(3px); }
+
+    /* Weekly schedule */
+    .week{ display:grid; grid-template-columns: repeat(7, minmax(140px,1fr)); gap:16px; padding:18px; }
+    .day{ padding:16px; border-radius:12px; background: rgba(255,255,255,.04); min-height:180px; display:flex; flex-direction:column; gap:10px; }
+    .day h3{ margin:0 0 6px; font-size:16px; text-transform:uppercase; letter-spacing:.08em; opacity:.95; text-align:center; }
+    .slot{ padding:10px 12px; border-radius:10px; background: rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.08); }
+    .slot strong{ display:block; font-size:15px; margin-bottom:4px; }
+    .slot .time{ font-size:13px; opacity:.9; }
+    .slot .place a{ color:#fff; text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.5); }
+    .slot .place a:hover{ opacity:.85; }
+
+    /* Colors per weekday */
+    .day[data-day="mon"] .slot{ background: rgba(0,123,255,.28); border-color: rgba(0,123,255,.55); }  /* Monday: blue */
+    .day[data-day="tue"] .slot{ background: rgba(255,149,0,.28); border-color: rgba(255,149,0,.55); } /* Tuesday: orange */
+    .day[data-day="wed"] .slot{ background: rgba(138,43,226,.28); border-color: rgba(138,43,226,.55); } /* Wednesday: violet */
+
+    .muted{ opacity:.6; }
+
+    /* Progressive fade from Thursday on */
+    .day.fade-thu{ opacity:.85; }
+    .day.fade-fri{ opacity:.55; filter: grayscale(30%); }
+    .day.fade-sat{ opacity:.35; filter: grayscale(60%); }
+    .day.fade-sun{ opacity:.22; filter: grayscale(85%); }
+
+    /* Responsive */
+    @media (max-width: 960px){ .week{ grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 640px){ .week{ grid-template-columns: 1fr; } header h1{ font-size:32px; } }
+
+    /* Workshops & Camps (centered, same style) */
+    .section{ margin-top:34px; padding:18px; }
+    .section-title{ text-align:center; margin:0 0 14px; font-size:32px; text-transform:uppercase; text-shadow: 2px 2px 5px rgba(0,0,0,.35); }
+    .workshop-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:16px; padding:12px; }
+    .ws-card{ padding:14px; border-radius:12px; background: rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.08); text-align:center; }
+    .ws-card strong{ display:block; margin-bottom:6px; font-size:16px; }
+    .ws-card .meta{ font-size:13px; opacity:.9; margin-bottom:6px; }
+    .ws-card a{ color:#fff; text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.5); }
+
+    .center-button{ text-align:center;margin:28px 0; }
+    .button{ display:inline-block; padding:14px 24px; background:var(--btn-bg); color:#fff; text-decoration:none; border-radius:8px; font-weight:700; transition:.2s ease-in-out; min-width:200px; text-align:center; }
+    .button:hover{ background:#0056b3; transform: translateY(-1px); }
+
+    footer{ text-align:center; margin:28px 0 10px; color:var(--muted); }
+
+    /* Print to PDF (Cmd/Ctrl+P) */
+    @media print{
+      body{ background:#fff; color:#111; }
+      .glass{ background:#fff; box-shadow:none; border-color:#ddd; }
+      .button{ display:none !important; }
+      .day{ background:#fff; border:1px solid #e5e7eb; }
+      .slot{ background:#fff; border-color:#e5e7eb; }
+      .slot .place a{ color:#111; border-bottom:1px solid #999; }
+      .ws-card{ background:#fff; border-color:#e5e7eb; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Dance Classes</h1>
+      <!-- Trailer: link to be added -->
+      <div class="video">
+        <div class="embed">
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0" title="Dance Classes Trailer" allowfullscreen></iframe>
+        </div>
+      </div>
+    </header>
+
+    <!-- Weekly schedule -->
+    <section class="glass">
+      <div class="week">
+        <!-- Monday -->
+        <div class="day" data-day="mon">
+          <h3>Monday</h3>
+          <div class="slot">
+            <strong>Breaking Kids</strong>
+            <div class="time">16:00 – 17:00</div>
+            <div class="place">
+              <a href="http://www.tanzetage-freilassing.de/" target="_blank" rel="noopener" title="Tanzétage Freilassing">Tanzétage · Freilassing</a>
+            </div>
+          </div>
+          <div class="slot">
+            <strong>Hip Hop Freestyle Kids</strong>
+            <div class="time">17:00 – 18:00</div>
+            <div class="place">
+              <a href="http://www.tanzetage-freilassing.de/" target="_blank" rel="noopener" title="Tanzétage Freilassing">Tanzétage · Freilassing</a>
+            </div>
+          </div>
+          <div class="slot">
+            <strong>Urban Dance Styles</strong>
+            <div class="time">18:00 – 19:15</div>
+            <div class="place">
+              <a href="http://www.tanzetage-freilassing.de/" target="_blank" rel="noopener" title="Tanzétage Freilassing">Tanzétage · Freilassing</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tuesday -->
+        <div class="day" data-day="tue">
+          <h3>Tuesday</h3>
+          <div class="slot">
+            <strong>Breaking Kids</strong>
+            <div class="time">15:30 – 16:30</div>
+            <div class="place">
+              <a href="https://www.aliciakidman.com/" target="_blank" rel="noopener" title="London Dance Studios Bergheim">London Dance Studios · Bergheim</a>
+            </div>
+          </div>
+          <div class="slot">
+            <strong>Fresh Rockerz</strong>
+            <div class="time">16:45 – 17:45</div>
+            <div class="place">
+              <a href="https://www.aliciakidman.com/" target="_blank" rel="noopener" title="London Dance Studios Bergheim">London Dance Studios · Bergheim</a>
+            </div>
+          </div>
+          <div class="slot">
+            <strong>Breaking Teens</strong>
+            <div class="time">18:00 – 19:00</div>
+            <div class="place">
+              <a href="https://www.aliciakidman.com/" target="_blank" rel="noopener" title="London Dance Studios Bergheim">London Dance Studios · Bergheim</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wednesday -->
+        <div class="day" data-day="wed">
+          <h3>Wednesday</h3>
+          <div class="slot">
+            <strong>Breaking Kids</strong>
+            <div class="time">16:00 – 16:50</div>
+            <div class="place">
+              <a href="https://www.vs-anthering.salzburg.at/" target="_blank" rel="noopener" title="VS Anthering">VS Anthering</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thursday (slightly faded) -->
+        <div class="day fade-thu" data-day="thu">
+          <h3>Thursday</h3>
+          <div class="slot muted">No regular classes</div>
+        </div>
+
+        <!-- Friday–Sunday more faded -->
+        <div class="day fade-fri" data-day="fri">
+          <h3>Friday</h3>
+          <div class="slot muted">No classes</div>
+        </div>
+        <div class="day fade-sat" data-day="sat">
+          <h3>Saturday</h3>
+          <div class="slot muted">No classes</div>
+        </div>
+        <div class="day fade-sun" data-day="sun">
+          <h3>Sunday</h3>
+          <div class="slot muted">No classes</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workshops & Camps (centered and consistent style) -->
+    <section id="workshops" class="section glass">
+      <h2 class="section-title">Workshops & Camps</h2>
+      <div class="workshop-grid">
+        <!-- Examples / placeholders: add or edit items -->
+        <div class="ws-card">
+          <strong>Breaking Workshop</strong>
+          <div class="meta">12–14 Sep 2026 · Linz</div>
+          <a href="https://REPLACE_WITH_REAL_URL/host-website" target="_blank" rel="noopener">Coming soon</a>
+        </div>
+        <div class="ws-card">
+          <strong>Popping Workshop</strong>
+          <div class="meta">28 Sep 2025 · Salzburg</div>
+          <a href="https://REPLACE_WITH_REAL_URL/host-website" target="_blank" rel="noopener">Coming soon</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="center-button">
+      <a class="button" href="https://chriscrossat.github.io/chriscross/" target="_blank" rel="noopener">Back to Overview</a>
+    </div>
+
+    <footer>
+      © <span id="y"></span> Chris Cross · Bookings & inquiries: <a href="https://www.chriscross.at/contact" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;">Contact</a>
+    </footer>
+  </div>
+
+  <script>
+    // Year in footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
